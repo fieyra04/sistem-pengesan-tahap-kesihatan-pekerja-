@@ -1,0 +1,25 @@
+<!-- login.html -->
+<form onsubmit="return validateLogin()">
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  function validateLogin() {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    
+    // Contoh data login - boleh ubah ikut Google Sheets atau data sebenar
+    const allowedUser = "pekerja@email.com";
+    const allowedPass = "1234";
+
+    if (email === allowedUser && pass === allowedPass) {
+      window.location.href = "borang.html"; // terus ke sistem
+      return false;
+    } else {
+      alert("Login gagal!");
+      return false;
+    }
+  }
+</script>
