@@ -1,124 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Pengesan Tahap Kesihatan Pekerja</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f1f1f1; padding: 20px; }
-    .container { max-width: 600px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
-    h2 { text-align: center; color: #333; }
-    label { display: block; margin-top: 15px; font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
-    button { margin-top: 20px; width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background-color: #45a049; }
-    .status { margin-top: 20px; font-weight: bold; text-align: center; }
-  </style>
+<meta charset="UTF-8" />
+<title>Borang Pemeriksaan Harian</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:20px; }
+  button { margin-right: 10px; }
+  nav { margin-bottom: 20px; }
+  nav a { text-decoration: none; color: blue; font-weight: bold; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h2>Borang Pemeriksaan Kesihatan Harian</h2>
-    <form id="healthForm">
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" name="nama" required>
 
-      <label for="umur">Umur:</label>
-      <input type="number" id="umur" name="umur" required>
+<nav>
+  <a href="rekod.html">Lihat Rekod Penilaian Kesihatan</a>
+</nav>
 
-      <label for="suhu">Suhu Badan (°C):</label>
-      <input type="number" id="suhu" name="suhu" step="0.1" required>
+<h2>Borang Pemeriksaan Harian Pekerja Telekomunikasi</h2>
 
-      <label for="denyut">Kadar Denyutan Jantung (bpm):</label>
-      <input type="number" id="denyut" name="denyut" placeholder="Boleh dibiarkan kosong jika tiada alat">
+<form id="borangPemeriksaan">
+  <label>Nama Pekerja:<br>
+    <input type="text" name="nama" required style="width:100%;">
+  </label><br><br>
 
-      <label for="spo2">Tahap Oksigen (SpO2 %):</label>
-      <input type="number" id="spo2" name="spo2" placeholder="Boleh dibiarkan kosong jika tiada alat">
+  <label>ID Pekerja:<br>
+    <input type="text" name="id" required style="width:100%;">
+  </label><br><br>
 
-      <label for="simptom">Adakah anda mengalami sebarang simptom berikut dalam 24 jam terakhir?</label>
-      <div id="senaraiSimptom">
-        <input type="checkbox" name="simptomList" value="Demam"> Demam<br>
-        <input type="checkbox" name="simptomList" value="Batuk"> Batuk<br>
-        <input type="checkbox" name="simptomList" value="Sakit tekak"> Sakit tekak<br>
-        <input type="checkbox" name="simptomList" value="Selesema"> Selesema<br>
-        <input type="checkbox" name="simptomList" value="Sakit kepala"> Sakit kepala<br>
-        <input type="checkbox" name="simptomList" value="Keletihan melampau"> Keletihan melampau<br>
-        <input type="checkbox" name="simptomList" value="Tiada sebarang simptom"> Tiada sebarang simptom<br>
-        <input type="text" name="simptomList" placeholder="Simptom lain...">
-      </div>
+  <label>Jabatan:<br>
+    <input type="text" name="jabatan" style="width:100%;">
+  </label><br><br>
 
-      <label for="keletihan">Skala Keletihan (1 - 5):</label>
-      <select id="keletihan" name="keletihan">
-        <option value="1">1 - Sangat Bertenaga</option>
-        <option value="2">2 - Agak Bertenaga</option>
-        <option value="3">3 - Neutral</option>
-        <option value="4">4 - Agak Letih</option>
-        <option value="5">5 - Sangat Letih</option>
-      </select>
+  <label>No. Telefon:<br>
+    <input type="text" name="telefon" style="width:100%;">
+  </label><br><br>
 
-      <button type="submit">Hantar</button>
-    </form>
+  <label>Tarikh Pemeriksaan:<br>
+    <input type="date" name="tarikh" required style="width:100%;">
+  </label><br><br>
 
-    <div class="status" id="statusKesihatan"></div>
-  </div>
+  <label>Lokasi Tugasan:<br>
+    <input type="text" name="lokasi" style="width:100%;">
+  </label><br><br>
 
-  <script>
-    document.getElementById('healthForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  <label>Suhu badan semasa (°C):<br>
+    <input type="number" step="0.1" name="suhu" required style="width:100%;">
+  </label><br><br>
 
-      const nama = document.getElementById('nama').value;
-      const umur = document.getElementById('umur').value;
-      const suhu = parseFloat(document.getElementById('suhu').value);
-      const denyutInput = document.getElementById('denyut').value;
-      const spo2Input = document.getElementById('spo2').value;
+  <label>Gejala:<br>
+    <input type="checkbox" name="gejala" value="Batuk"> Batuk<br>
+    <input type="checkbox" name="gejala" value="Selsema"> Selsema<br>
+    <input type="checkbox" name="gejala" value="Sakit tekak"> Sakit tekak<br>
+    <input type="checkbox" name="gejala" value="Sesak nafas"> Sesak nafas<br>
+    <input type="checkbox" name="gejala" value="Demam"> Demam<br>
+    <input type="checkbox" name="gejala" value="Hilang deria bau/rasa"> Hilang deria bau/rasa<br>
+  </label><br>
 
-      const denyut = denyutInput ? parseInt(denyutInput) : null;
-      const spo2 = spo2Input ? parseInt(spo2Input) : null;
+  <label>Penyakit kronik:<br>
+    <input type="radio" name="kronik" value="Ya" required> Ya<br>
+    <input type="radio" name="kronik" value="Tidak"> Tidak<br>
+    Jika Ya, nyatakan: <input type="text" name="penyakit" style="width:100%;">
+  </label><br><br>
 
-      const keletihan = parseInt(document.getElementById('keletihan').value);
+  <label>Hubungan dengan pesakit COVID-19 dalam 14 hari lepas:<br>
+    <input type="radio" name="covid" value="Ya" required> Ya<br>
+    <input type="radio" name="covid" value="Tidak"> Tidak<br>
+  </label><br>
 
-      const simptomChecked = document.querySelectorAll('input[name="simptomList"]:checked');
-      const simptomText = document.querySelectorAll('input[name="simptomList"][type="text"]');
+  <label>Keadaan kesihatan hari ini:<br>
+    <input type="radio" name="keadaan" value="Sangat Sihat" required> Sangat Sihat<br>
+    <input type="radio" name="keadaan" value="Sihat"> Sihat<br>
+    <input type="radio" name="keadaan" value="Kurang Sihat"> Kurang Sihat<br>
+    <input type="radio" name="keadaan" value="Tidak Sihat"> Tidak Sihat<br>
+  </label><br><br>
 
-      let simptom = [...simptomChecked].map(cb => cb.value);
-      simptomText.forEach(input => {
-        if (input.value.trim()) simptom.push(input.value.trim());
-      });
+  <button type="submit">Hantar</button>
+  <button type="reset">Reset</button>
+</form>
 
-      let status = "Sihat";
-      if (
-        suhu > 37.5 ||
-        (denyut !== null && denyut > 100) ||
-        (spo2 !== null && spo2 < 95) ||
-        keletihan >= 4 ||
-        simptom.includes("Batuk") ||
-        simptom.includes("Sakit tekak")
-      ) {
-        status = "Perlu Pemeriksaan Lanjut";
-      }
+<div id="msg" style="margin-top:15px; font-weight:bold; color:green;"></div>
 
-      document.getElementById('statusKesihatan').innerText = `Status Kesihatan: ${status}`;
+<script>
+  const form = document.getElementById('borangPemeriksaan');
+  const msg = document.getElementById('msg');
 
-      const data = {
-        nama,
-        umur,
-        suhu,
-        denyut: denyut ?? '',
-        spo2: spo2 ?? '',
-        simptom,
-        keletihan,
-        status
-      };
+  form.addEventListener('submit', e => {
+    e.preventDefault();
 
-      fetch('https://script.google.com/macros/s/AKfycbwwki7fM_NcgSeoLo6bD2CCu_Dlra0AhYh148NNSyGq_Ek8rNz2MfweNF7B_O1yIq5pzw/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+    const data = new FormData(form);
+    const nama = data.get('nama');
+    const id = data.get('id');
+    const jabatan = data.get('jabatan');
+    const telefon = data.get('telefon');
+    const tarikh = data.get('tarikh');
+    const lokasi = data.get('lokasi');
+    const suhu = data.get('suhu');
+    const gejala = data.getAll('gejala');
+    const kronik = data.get('kronik');
+    const penyakit = data.get('penyakit');
+    const covid = data.get('covid');
+    const keadaan = data.get('keadaan');
+
+    let rekodData = JSON.parse(localStorage.getItem('rekodKesihatan')) || [];
+
+    rekodData.push({
+      nama, id, jabatan, telefon, tarikh, lokasi,
+      suhu, gejala, kronik, penyakit, covid, keadaan
     });
-  </script>
+
+    localStorage.setItem('rekodKesihatan', JSON.stringify(rekodData));
+
+    msg.textContent = 'Rekod berjaya dihantar!';
+    form.reset();
+  });
+</script>
+
 </body>
 </html>

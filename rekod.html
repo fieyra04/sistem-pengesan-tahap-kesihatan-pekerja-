@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8" />
+<title>Rekod Penilaian Kesihatan</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+  th, td { border: 1px solid #ddd; padding: 8px; text-align:center;}
+  th { background-color: #f2f2f2;}
+  button { margin: 0 5px; }
+  .status-lulus { color: green; font-weight: bold; }
+  .status-semakan { color: orange; font-weight: bold; }
+  .status-tidak { color: red; font-weight: bold; }
+  nav { margin-bottom: 20px; }
+  nav a { text-decoration: none; color: blue; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="borang.html">Isi Borang Pemeriksaan Harian</a>
+</nav>
+
+<h2>Rekod Penilaian Kesihatan Pekerja</h2>
+
+<table id="rekodTable">
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>Tarikh</th>
+      <th>Suhu (°C)</th>
+      <th>Simptom</th>
+      <th>Status</th>
+      <th>Tindakan</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+  let rekodData = JSON.parse(localStorage.getItem('rekodKesihatan')) || [];
+
+  const rekodTableBody = document.querySelector('#rekodTable tbody');
+
+  function kiraStatus(suhu, gejala) {
+    if (suhu > 37.5 || gejala.length > 0) return 'Tidak Lulus';
+    if (suhu > 37 || gejala.length <= 1) return 'Perlu Semakan';
+    return 'Lulus';
+  }
+
+  function warnaStatus(status) {
+    if (status === 'Lulus') return 'status-lulus';
+    if (status === 'Perlu Semakan') return 'status-semakan';
+    if (status === 'Tidak Lulus') return 'status-tidak';
+    return '';
+  }
+
+  function paparkanData() {
+    rekodTableBody.innerHTML = '';
+    if (rekodData.length === 0) {
+      rekodTableBody.innerHTML = '<tr><td colspan="6">Tiada rekod dijumpai.</td></tr>';
+      return;
+    }
+    rekodData.forEach((rekod, idx) => {
+      const simptom = rekod.gejala.length > 0 ? rekod.gejala.join(', ') : 'Tiada';
+      const status = kiraStatus(parseFloat(rekod.suhu), rekod.gejala);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${rekod.nama}</td>
+        <td>${rekod.tarikh}</td>
+        <td>${rekod.suhu}</td>
+        <td>${simptom}</td>
+        <td class="${warnaStatus(status)}">${status}</td>
+        <td><button onclick="padamRekod(${idx})" style="color:red;">Padam</button></td>
+      `;
+      rekodTableBody.appendChild(tr);
+    });
+  }
+
+  function padamRekod(index) {
+    if (confirm('Adakah anda pasti mahu memadam rekod ini?')) {
+      rekodData.splice(index, 1);
+      localStorage.setItem('rekodKesihatan', JSON.stringify(rekodData));
+      paparkanData();
+    }
+  }
+
+  paparkanData();
+</script>
+
+</body>
+</html>
